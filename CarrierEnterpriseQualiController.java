@@ -23,8 +23,8 @@ public class CarrierEnterpriseQualiController extends Controller {
 	/**
 	 * 资质预警概览
 	 */
-	public void overview(){
-		Users users = getSessionAttr1("users");
+	public void overview(){ff
+		Users users = getSessionAttr("users");
 		Record enterpriseQuali = QualificationService.enterprisePieDate(users.getInt("agencyId"), 2,"").get(0);
 		setAttr("enterpriseQuali", enterpriseQuali);
 		render("overview.jsp");
@@ -35,7 +35,7 @@ public class CarrierEnterpriseQualiController extends Controller {
 	public void normalList(){
 		Integer pageIdx = getParaToInt("pageIdx", 1);
 		StringBuffer where = new StringBuffer("");
-		Users users = getSessionAttr1("users");
+		Users users = getSessionAttr("users");
 		where.append(" and t1.agencyId = "+users.getInt("agencyId"));
 		//查询承运商id为carrierId的车辆资质正常的全部车辆
 		Page<Record> page = seqs.getNormalEnterpriseQualiInformation(pageIdx, getParaToInt("pageSize", ESConfig.PAGE_SIZE), where.toString());
@@ -49,7 +49,7 @@ public class CarrierEnterpriseQualiController extends Controller {
 	public void expiringList(){
 		Integer pageIdx = getParaToInt("pageIdx", 1);
 		StringBuffer where = new StringBuffer("");
-		Users users = getSessionAttr1("users");
+		Users users = getSessionAttr("users");
 		where.append(" and t1.agencyId = "+users.getInt("agencyId"));
 		//查询承运商id为carrierId的车辆资质正常的全部车辆
 		Page<Record> page = seqs.getExpiringPeopleQualiInformation(pageIdx, getParaToInt("pageSize", ESConfig.PAGE_SIZE), where.toString());
