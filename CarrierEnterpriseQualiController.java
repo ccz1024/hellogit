@@ -13,7 +13,7 @@ import com.jfinal.plugin.activerecord.Record;
 /**
  * 润安危物>>ES云平台
  * 承运商-资质预警-企业资质到期预警controller
- * 创建人：     蒋三寅
+ * 创建人：     ccz
  * 创建时间：2016年4月11日下午5:23:37
  */
 public class CarrierEnterpriseQualiController extends Controller {
@@ -24,7 +24,7 @@ public class CarrierEnterpriseQualiController extends Controller {
 	 * 资质预警概览
 	 */
 	public void overview(){
-		Users users = getSessionAttr("users");
+		Users users = getSessionAttr1("users");
 		Record enterpriseQuali = QualificationService.enterprisePieDate(users.getInt("agencyId"), 2,"").get(0);
 		setAttr("enterpriseQuali", enterpriseQuali);
 		render("overview.jsp");
@@ -35,7 +35,7 @@ public class CarrierEnterpriseQualiController extends Controller {
 	public void normalList(){
 		Integer pageIdx = getParaToInt("pageIdx", 1);
 		StringBuffer where = new StringBuffer("");
-		Users users = getSessionAttr("users");
+		Users users = getSessionAttr1("users");
 		where.append(" and t1.agencyId = "+users.getInt("agencyId"));
 		//查询承运商id为carrierId的车辆资质正常的全部车辆
 		Page<Record> page = seqs.getNormalEnterpriseQualiInformation(pageIdx, getParaToInt("pageSize", ESConfig.PAGE_SIZE), where.toString());
@@ -49,7 +49,7 @@ public class CarrierEnterpriseQualiController extends Controller {
 	public void expiringList(){
 		Integer pageIdx = getParaToInt("pageIdx", 1);
 		StringBuffer where = new StringBuffer("");
-		Users users = getSessionAttr("users");
+		Users users = getSessionAttr1("users");
 		where.append(" and t1.agencyId = "+users.getInt("agencyId"));
 		//查询承运商id为carrierId的车辆资质正常的全部车辆
 		Page<Record> page = seqs.getExpiringPeopleQualiInformation(pageIdx, getParaToInt("pageSize", ESConfig.PAGE_SIZE), where.toString());
@@ -63,7 +63,7 @@ public class CarrierEnterpriseQualiController extends Controller {
 	public void expiredList(){
 		Integer pageIdx = getParaToInt("pageIdx", 1);
 		StringBuffer where = new StringBuffer("");
-		Users users = getSessionAttr("users");
+		Users users = getSessionAttr1("users");
 		where.append(" and t1.agencyId = "+users.getInt("agencyId"));
 		//查询承运商id为carrierId的车辆资质正常的全部车辆
 		Page<Record> page = seqs.getExpiredPeopleQualiInformation(pageIdx, getParaToInt("pageSize", ESConfig.PAGE_SIZE), where.toString());
